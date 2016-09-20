@@ -1,0 +1,58 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--引入外部属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+
+    <!--配置c3p0连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="accountService" class="demo2DeclarativeTransacation1.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+
+    <bean id="accountDao" class="demo2DeclarativeTransacation1.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="transacationManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--通过连接池获得连接-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--事实上这种管理方式不常用,因为尽管没有对业务逻辑代码有侵入,但是需要对每个进行事务处理的方法进行代理配置,太过麻烦-->
+    <!--配置业务层代理-->
+    <bean id="accountServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <!--注入目标对象-->
+        <property name="target" ref="accountService"/>
+        <!--注入事务管理器-->
+        <property name="transactionManager" ref="transacationManager"/>
+        <!--注入事务属性-->
+        <property name="transactionAttributes">
+            <props>
+                <!--<prop key="insert*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="update*">PROPAGATION_REQUIRED</prop>-->
+                <!--
+                    PROPAGATION:事务传播行为
+                    ISOLATION:事务隔离级别
+                    READONLY:只读(其他操作都会回滚)
+                    -EXCEPTION:发生那些异常回滚事务(默认全部异常都回滚)
+                    +EXCEPTION:发生那些异常事务不回滚-->
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
