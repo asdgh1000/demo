@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--<bean id="customerService" class="com.mkyong.customer.services.CustomerService">-->
+        <!--<property name="name" value="Yong Mook Kim" />-->
+        <!--<property name="url" value="http://www.mkyong.com" />-->
+    <!--</bean>-->
+
+    <bean id="countingBeforeAdvice" class="user.aop.CountingBeforeAdvice" />
+
+    <bean id="customerServiceProxy"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+
+        <property name="target" ref="countingBeforeAdvice" />
+
+        <property name="interceptorNames">
+            <list>
+                <value>countingBeforeAdvice</value>
+            </list>
+        </property>
+    </bean>
+</beans>

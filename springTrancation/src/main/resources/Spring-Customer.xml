@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="customerService" class="user.springAopTest.CustomerService">
+        <property name="name" value="Li tian wei" />
+        <property name="url" value="http://www.baidu.com" />
+    </bean>
+    <bean id="hijackBeforeMethodBean" class="user.springAopTest.HijackBeforeMethod" />
+    <bean id="hijackAfterMethodBean" class="user.springAopTest.HijackAfterMethod" />
+
+    <bean id="customerServiceProxy"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+
+        <property name="target" ref="customerService" />
+
+        <property name="interceptorNames">
+            <list>
+                <value>hijackAfterMethodBean</value>
+                <value>hijackBeforeMethodBean</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

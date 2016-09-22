@@ -11,5 +11,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.2" level="project" />
   </component>
 </module>

@@ -1,0 +1,9 @@
+<bean id="bankService" class="footmark.spring.core.tx.programmatic.origin.BankServiceImpl">
+    <property name="bankDao" ref="bankDao"/>
+    <property name="txManager" ref="transactionManager"/>
+    <property name="txDefinition">
+        <bean class="org.springframework.transaction.support.DefaultTransactionDefinition">
+            <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+        </bean>
+    </property>
+</bean>

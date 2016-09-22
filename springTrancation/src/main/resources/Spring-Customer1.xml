@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <bean id="name" name="name" class="user.SpringAopTest1.Name"
+          abstract="false" lazy-init="default" autowire="default"
+          dependency-check="default">
+        <constructor-arg value="cui" />
+        <constructor-arg value="chizhou"></constructor-arg>
+    </bean>
+    <bean id="person" name="person" class="user.SpringAopTest1.Person">
+        <property name="name" ref="name"></property>
+    </bean>
+    <bean name="advice" id="advice" class="org.syna.demo.BeforeAdvice"></bean>
+    <bean name="pointcut" id="pointcut"
+          class="org.springframework.aop.support.NameMatchMethodPointcut">
+        <property name="mappedName">
+            <value>*say</value>
+        </property>
+    </bean>
+    <bean id="advisor" name="advisor"
+          class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="advice">
+            <ref local="advice" />
+        </property>
+        <property name="pointcut">
+            <ref local="pointcut" />
+        </property>
+    </bean>
+    <bean name="proxyBean"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <ref local="person" />
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <idref local="advisor" />
+            </list>
+        </property>
+    </bean>
