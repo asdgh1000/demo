@@ -21,21 +21,21 @@ public class CglibProxy implements MethodInterceptor {
 	 * CGlib 使用继承方式进行代理
 	 * 拦截所有目标类方法的调用
 	 * @param o 目标类的实例
-	 * @param method 目标方法的反射对象
-	 * @param objects 方法的参数
+	 * @param method 目标类的方法
+	 * @param args 方法的参数
 	 * @param methodProxy 代理类的实例
 	 * @return
 	 * @throws Throwable
 	 */
-	public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+	public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
 		long start = System.currentTimeMillis();
 		System.out.println("start-----");
 		/**
 		 * 代理类调用父类的方法
 		 * o:目标类对象
-		 * objects:方法参数
+		 * args:方法参数
 		 */
-		methodProxy.invokeSuper(o,objects);
+		methodProxy.invokeSuper(o,args);
 		long end = System.currentTimeMillis();
 		System.out.println("end-----");
 		System.out.println("waste time :" + (end - start));
