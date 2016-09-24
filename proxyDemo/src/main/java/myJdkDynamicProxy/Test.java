@@ -1,9 +1,6 @@
 package myJdkDynamicProxy;
 
-import jdkDynamicProxy.TimeHandler;
-import jdkDynamicProxy.TransactionHandler;
 
-import java.lang.reflect.InvocationHandler;
 
 /**
  * 动态代理测试类:为防止静态代理的类爆炸,因此引入动态代理(若需要多种不同的代理,即使使用组合的方式仍然需要创建很多代理类)
@@ -12,7 +9,6 @@ import java.lang.reflect.InvocationHandler;
 public class Test {
 	public static void main(String[] args){
 		Move move = new MoveImpl();
-		InvocationHandler timeHandler = new TimeHandler(move);
 
 		/**
 		 * loader:类加载器
@@ -26,6 +22,12 @@ public class Test {
 		 * 3.将类load到内存中产生代理对象
 		 * return 代理对象
 		 */
-		Proxy.newProxyInstance(Move.class);
+		InvocationHandler timeHandler = new TimeHandler(move);
+		try {
+			Move moveProxy = (Move)Proxy.newProxyInstance(Move.class,timeHandler);
+			moveProxy.drive();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
