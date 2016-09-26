@@ -36,10 +36,10 @@ public class Proxy {
 		" * Created by Jo on 9/21/16." +rt+
 		" */" +rt+
 		"public class $Proxy0 implements "+ infce.getName()+"{" +rt+
-		"	public $Proxy0(InvocationHandler h){" +rt+
-		"		super();" +rt+
-		"		this.h = h;" +rt+
-		"	}" +rt+
+			"public $Proxy0(InvocationHandler h){" +rt+
+				"super();" +rt+
+				"this.h = h;" +rt+
+			"}" +rt+
 		"private InvocationHandler h;"+rt+
 			methodStr+rt+
 		"}";

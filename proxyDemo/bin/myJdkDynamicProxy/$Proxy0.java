@@ -6,10 +6,10 @@ import java.lang.reflect.Method;
  * Created by Jo on 9/21/16.
  */
 public class $Proxy0 implements myJdkDynamicProxy.Move{
-	public $Proxy0(InvocationHandler h){
-		super();
-		this.h = h;
-	}
+public $Proxy0(InvocationHandler h){
+super();
+this.h = h;
+}
 private InvocationHandler h;
 public void drive() {
 try{

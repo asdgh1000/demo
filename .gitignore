@@ -12,3 +12,5 @@
 hs_err_pid*
 # idea ignore
 .idea*
+workspace.xml
+
