@@ -22,6 +22,13 @@
 常用实现类：`FileSystemXmlApplicationContext`
 #####1.1.3.启动过程
 由于对于不同容器启动过程是类似的，因此在基类`AbstractXmlApplicationContext`中将它们封装好，通过refresh()方法进行调用。
+######refresh():
+IOC容器初始化具体分为以下三部：
+| BeanDefinition的Resource|定位|载入|注册|
+| :-------- | --------:|--------:|--------:|
+||对不同BeanDefinition Resource的定位|把用户定义的Bean表示成Ioc容器内部数据结构|调用BeanDefinitionRegistry注册BeanDefinition到IOC容器的HashMap中|
+此时的ioc容器初始化过程一般`不包含Bean依赖注入`,一般依赖注入是在第一次getBean时才进行（设置了lazyinit的除外）。
+
 ###2.spring的事务
 ###2.1.编程式事务
 `作为例子，使用场景很少`
