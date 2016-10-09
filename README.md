@@ -14,10 +14,18 @@
 核心：实现动态代理的Proxy类 ，
 实现动态代理的InvocationHandler类重写invoke方法实现.
 ##二.spring
-###1.spring的事务
-###1.编程式事务
+###1.spring ioc
+####1.1.spring容器
+######1.1.1.BeanFactory
+常用实现类：`DefaultListableBeanFactory`	
+######1.1.2.ApplicationContext
+常用实现类：`FileSystemXmlApplicationContext`
+#####1.1.3.启动过程
+由于对于不同容器启动过程是类似的，因此在基类`AbstractXmlApplicationContext`中将它们封装好，通过refresh()方法进行调用。
+###2.spring的事务
+###2.1.编程式事务
 `作为例子，使用场景很少`
-###2.声明式事务
+###2.2.声明式事务
 ####使用spring-AspectJ（编译时实现动态代理）
 `通过配置切点，切面织入实现动态代理`
 ####使用spring-AOP动态代理（运行时实现动态代理）
@@ -25,8 +33,8 @@
 ####事务传播行为
 ####事务隔离级别
 
-###数据库事务
-####数据库事务调优原则
+##三.数据库事务
+###1.1数据库事务调优原则
 在不影响业务应用的前提下:
 1.`减少锁的覆盖范围（如：表锁->行锁）`
 2.`增加锁上可并行的线程数（如：读锁写锁分离，允许并行读取数据）`
