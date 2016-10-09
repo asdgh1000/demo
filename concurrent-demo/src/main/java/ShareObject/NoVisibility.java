@@ -4,9 +4,9 @@ package ShareObject;
  * Created by Jo on 10/8/16.
  */
 public class NoVisibility {
+	//存在共享变量,但是同时没有做好线程之间的同步
 	private static boolean ready;
 	private static int number;
-
 	private static class ReaderThread extends Thread{
 		public void run(){
 			while(!ready){
