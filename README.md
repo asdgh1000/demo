@@ -28,6 +28,23 @@ IOC容器初始化具体分为以下三部：
 | :-------- | --------:|--------:|--------:|
 ||对不同BeanDefinition Resource的定位|把用户定义的Bean表示成Ioc容器内部数据结构|调用BeanDefinitionRegistry注册BeanDefinition到IOC容器的HashMap中|
 此时的ioc容器初始化过程一般`不包含Bean依赖注入`,一般依赖注入是在第一次getBean时才进行（设置了lazyinit的除外）。
+######registerBeanDefinition：
+```java
+DefaultListableBeanFactory:
+	this.beanDefinitionMap.put(beanName, beanDefinition);
+```
+#####1.1.4.ioc容器的依赖注入
+```java
+AbstractBeanFactory:
+	protected <T> T doGetBean(
+			final String name, final Class<T> requiredType, final Object[] args, boolean typeCheckOnly)
+			throws BeansException 
+```
+#####1.1.5.Bean实力化
+默认使用cglib对java的字节码进行增强。
+`SimpleInstantiationStrategy`：
+提供两种实例话方案，一种是通过BeanUtils，使用了`JVM反射`。
+一种就是通过`cglib`。
 
 ###2.spring的事务
 ###2.1.编程式事务
