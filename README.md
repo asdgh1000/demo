@@ -40,12 +40,16 @@ AbstractBeanFactory:
 			final String name, final Class<T> requiredType, final Object[] args, boolean typeCheckOnly)
 			throws BeansException 
 ```
-#####1.1.5.Bean实力化
+#####1.1.5.Bean实例化
 默认使用cglib对java的字节码进行增强。
 `SimpleInstantiationStrategy`：
 提供两种实例话方案，一种是通过BeanUtils，使用了`JVM反射`。
 一种就是通过`cglib`。
-
+#####1.1.6.设置Bean对象的依赖：
+```java
+AbstractAutowireCapableBeanFactory:
+populateBean
+```
 ###2.spring的事务
 ###2.1.编程式事务
 `作为例子，使用场景很少`
