@@ -8,25 +8,18 @@ import java.util.*;
  * Created by Jo on 10/9/16.
  */
 public class Solution {
-	public int[] intersection(int[] nums1, int[] nums2) {
-		int[] result = new int[nums1.length];
-		if(nums2.length == 0){
-			return null;
-		}
-		HashSet set = new HashSet();
-		HashSet<Integer> set2 = new HashSet();
-		for(int i=0;i<nums1.length;i++){
-			set.add(nums1[i]);
-		}
-		for(int i=0;i<nums2.length;i++){
-			if(set.contains(nums2[i])){
-				set2.add(nums2[i]);
-			}
-		}
-		int i = 0;
-		for(Integer a : set2){
-			result[i++] = a;
-		}
-		return result;
-	}
+//	public int getSum(int a, int b) {
+//		String a1 = Integer.toBinaryString(a);
+//		String b1 = Integer.toBinaryString(b);
+//		int max = a1.length()>=b1.length() ? a1.length():b1.length();
+//		int min = a1.length()>=b1.length() ? b1.length():a1.length();
+//		int a2 = Integer.getInteger(a1.charAt(min)+"");
+//		int b2 = Integer.getInteger(b1.charAt(min)+"");
+//		if((a2^b2)==0){
+//
+//		}
+//		else{
+//			return a^b;
+//		}
+//	}
 }
