@@ -22,13 +22,14 @@ public class SuccessKillDaoTest {
 
 	@Test
 	public void testInsertSuccessKill() throws Exception {
-		int insertNumber = successKillDao.insertSuccessKill(1000,18868831752l);
+		int insertNumber = successKillDao.insertSuccessKill(1001l,18868831752l);
 		System.out.println("insertNumber:"+insertNumber);
 	}
 
 	@Test
 	public void testQueryByIdWithSeckill() throws Exception {
-		SuccessKill successKill = successKillDao.queryByIdWithSeckill(1000l);
+		SuccessKill successKill = successKillDao.queryByIdWithSeckill(1001l,18868831752l);
 		System.out.println(successKill);
+		System.out.println(successKill.getSeckill());
 	}
 }

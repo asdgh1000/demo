@@ -2,11 +2,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.netease.seckill.dao.SuccessKillDao">
-        <insert id="insertSuccessKill"  parameterType="long">
+        <insert id="insertSuccessKill" >
         <!-- identity confilct,ignore error and return 0 -->
-          INSERT IGNORE INTO
-            success_kill(seckill_id,user_phone)
-          VALUES (#{seckillId},#{userPhone})
+          INSERT ignore INTO
+            success_kill(seckill_id,user_phone,status)
+          VALUES (#{seckillId},#{userPhone},0)
         </insert>
 
         <select id="queryByIdWithSeckill" resultType="SuccessKill" parameterType="long">
@@ -28,7 +28,7 @@
           INNER JOIN
             seckill s ON sk.seckill_id = s.seckill_id
           WHERE
-            sk.seckill_id = #{seckillId}
+            sk.seckill_id = #{seckillId} AND sk.user_phone=#{userPhone}
           <!-- can control the sql freely -->
         </select>
 </mapper>
