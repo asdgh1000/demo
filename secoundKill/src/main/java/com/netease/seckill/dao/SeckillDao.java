@@ -1,6 +1,7 @@
 package com.netease.seckill.dao;
 
 import com.netease.seckill.entity.Seckill;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface SeckillDao {
 	 * @param killTime
 	 * @return if effect line number >=1 ,means update lines. if return 0 means reduce fail
 	 */
-	int reduceNumber(long seckillId,Date killTime);
+	int reduceNumber( @Param("seckillId") long seckillId,@Param("killTime") Date killTime);
 
 	/**
 	 * query seckill product
@@ -31,6 +32,6 @@ public interface SeckillDao {
 	 * @param limit
 	 * @return
 	 */
-	List<Seckill> queryAll(int offset,int limit);
+	List<Seckill> queryAll(@Param("offset")int offset,@Param("limit")int limit);
 
 }

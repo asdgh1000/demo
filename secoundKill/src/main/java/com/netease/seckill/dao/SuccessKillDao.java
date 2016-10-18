@@ -1,6 +1,7 @@
 package com.netease.seckill.dao;
 
 import com.netease.seckill.entity.SuccessKill;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by Jo on 10/17/16.
@@ -13,7 +14,7 @@ public interface SuccessKillDao {
 	 * @param userPhone
 	 * @return insert lines
 	 */
-	int insertSuccessKill(long seckillId,long userPhone);
+	int insertSuccessKill(@Param("seckillId")long seckillId,@Param("userPhone")long userPhone);
 
 	/**
 	 * query successKill with seckill by Id
