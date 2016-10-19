@@ -1,4 +1,4 @@
-package com.netease.seckill.impl;
+package com.netease.seckill.service.impl;
 
 import com.netease.seckill.dao.SeckillDao;
 import com.netease.seckill.dao.SuccessKillDao;
@@ -13,6 +13,9 @@ import com.netease.seckill.exception.SeckillException;
 import com.netease.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -22,6 +25,8 @@ import java.util.List;
 /**
  * Created by Jo on 10/18/16.
  */
+
+@Service
 public class SeckillServiceImpl implements SeckillService{
 
 	@Resource
@@ -70,6 +75,7 @@ public class SeckillServiceImpl implements SeckillService{
 		return md5;
 	}
 
+	@Transactional  //rollback when runtimeException happend
 	public SeckillExcution executeSeckill(long seckillId, long userPhone, String md5)
 			throws SeckillException, RepeatKillException, SeckillCloseException {
 		if(md5 == null || !md5.equals(getMd5(seckillId))){
