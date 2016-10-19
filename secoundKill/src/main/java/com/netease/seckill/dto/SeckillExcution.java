@@ -55,4 +55,14 @@ public class SeckillExcution {
 	public void setSuccessKill(SuccessKill successKill) {
 		this.successKill = successKill;
 	}
+
+	@Override public String toString() {
+		final StringBuffer sb = new StringBuffer("SeckillExcution{");
+		sb.append("seckillId=").append(seckillId);
+		sb.append(", status=").append(status);
+		sb.append(", statusInfo='").append(statusInfo).append('\'');
+		sb.append(", successKill=").append(successKill);
+		sb.append('}');
+		return sb.toString();
+	}
 }
