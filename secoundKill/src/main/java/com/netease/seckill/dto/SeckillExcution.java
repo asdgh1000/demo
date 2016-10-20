@@ -23,8 +23,13 @@ public class SeckillExcution {
 		this.statusInfo = seckillStatusEnum.getStatusInfo();
 		this.successKill = successKill;
 	}
+	public SeckillExcution(long seckillId, SeckillStatusEnum seckillStatusEnum) {
+		this.seckillId = seckillId;
+		this.status = seckillStatusEnum.getStatus();
+		this.statusInfo = seckillStatusEnum.getStatusInfo();
+	}
 
-	public long getSeckillId() {
+		public long getSeckillId() {
 		return seckillId;
 	}
 
