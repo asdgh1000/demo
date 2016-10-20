@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class SeckillController {
 			return new SeckillResult<SeckillExcution>(false,"do not login");
 		}
 		try{
-			SeckillExcution seckillExcution = seckillService.executeSeckill(seckillId,phone,md5);
+			SeckillExcution seckillExcution = seckillService.executeSeckill(seckillId, phone, md5);
 			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}catch (RepeatKillException e){
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId, SeckillStatusEnum.REPEAT_KILL);
@@ -102,5 +103,10 @@ public class SeckillController {
 		}
 	}
 
-	
+	@RequestMapping(value = "/time/now",method = RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public SeckillResult<Long> time(){
+		Date date = new Date();
+		return  new SeckillResult<Long>(true,date.getTime());
+	}
 }
