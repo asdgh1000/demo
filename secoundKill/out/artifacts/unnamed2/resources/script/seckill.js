@@ -9,26 +9,32 @@ var seckill = {
             return '/seckill/' + seckillId + '/exposer';
         },
         execution: function(seckillId, md5){
-            return '/seckill/' + seckillId + '/' + md5 + '/execute';
+            return '/seckill/' + seckillId + '/' + md5 + '/execution';
         }
     },
 
     handleSeckill: function(seckillId, node){
-        node.hide().html('<button class="btn bg-primary btn-lg" id="killBtn">开始秒杀</button>');
+        node.hide()
+            .html('<button class="btn bg-primary btn-lg" id="killBtn">start seckill</button>');
         $.post(seckill.URL.exposer(seckillId),{}, function(result){
+            console.log(result.success);
+            console.log(result.data);
             if(result && result['success']){
                 var exposer = result['data'];
-                if(exposer['isExposed']){
+                if(exposer['exposed']){
+                    //start seckill
+                    //get seckill address
                     var md5 = exposer['md5'];
                     var killUrl = seckill.URL.execution(seckillId, md5);
+                    console.log("killUrl:"+killUrl);
                     //只绑定一次点击事件
                     $('#killBtn').one('click', function(){
                         $(this).addClass('disabled');
                         $.post(killUrl, {}, function(result){
-                            if(result && result['seccess']){
+                            if(result && result['success']){
                                 var killResult = result['data'];
-                                var state = killResult['state'];
-                                var stateInfo = killResult['stateInfo'];
+                                var status = killResult['status'];
+                                var stateInfo = killResult['statusInfo'];
 
                                 node.html('<span class="label label-success">' + stateInfo + '</span>');
                             }
@@ -36,6 +42,7 @@ var seckill = {
                     });
                     node.show();
                 }else{
+                    //do not start seckill
                     var now = exposer['now'];
                     var start = exposer['start'];
                     var end = exposer['end'];
@@ -59,11 +66,11 @@ var seckill = {
     countdown : function(seckillId, nowTime, startTime, endTime){
         var seckillBox = $('#seckill-box');
         if(nowTime > endTime){
-            seckillBox.html('秒杀结束');
+            seckillBox.html('seckill is over');
         }else if(nowTime < startTime){
             var killTime = new Date(startTime + 1000);
             seckillBox.countdown(killTime, function(event){
-                var format = event.strftime('秒杀倒计时： %D天 %H时 %M分 %S秒');
+                var format = event.strftime('Distance seckill Time： %DDay %HHour %MMin %SSec');
                 seckillBox.html(format);
             }).on('finish.countdown', function(){
                 seckill.handleSeckill(seckillId, seckillBox);
@@ -92,7 +99,7 @@ var seckill = {
                         $.cookie('killPhone', inputPhone, {expires: 7, path: '/seckill'});
                         window.location.reload();
                     } else {
-                        $('#killphoneMessage').hide().html('<label class="label label-danger">手机号错误！</label>').show(300);
+                        $('#killphoneMessage').hide().html('<label class="label label-danger">wrong phone number！</label>').show(300);
                     }
                 });
             }

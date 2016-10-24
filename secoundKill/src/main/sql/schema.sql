@@ -20,9 +20,9 @@ CREATE TABLE seckill(
 --init data
 INSERT INTO seckill (name,number,start_time,end_time)
 VALUES
-  ('1 yuan secound kill',100,'2016-10-16 00:00:00','2016-10-20 00:00:00'),
-  ('100 yuan secound kill',500,'2016-10-16 00:00:00','2016-10-20 00:00:00'),
-  ('10000 yuan secound kill',1000,'2016-10-16 00:00:00','2016-10-20 00:00:00');
+  ('888 yuan secound kill',888,'2016-10-16 00:00:00','2016-10-30 00:00:00'),
+  ('777 yuan secound kill',777,'2016-10-16 00:00:00','2016-10-30 00:00:00'),
+  ('666 yuan secound kill',666,'2016-10-16 00:00:00','2016-10-30 00:00:00');
 
 --secound kill detail
 --user login information

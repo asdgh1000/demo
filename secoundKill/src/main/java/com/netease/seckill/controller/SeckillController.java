@@ -4,10 +4,9 @@ import com.netease.seckill.dto.Exposer;
 import com.netease.seckill.dto.SeckillExcution;
 import com.netease.seckill.dto.SeckillResult;
 import com.netease.seckill.entity.Seckill;
-import com.netease.seckill.entity.SeckillStatusEnum;
+import com.netease.seckill.enums.SeckillStatusEnum;
 import com.netease.seckill.exception.RepeatKillException;
 import com.netease.seckill.exception.SeckillCloseException;
-import com.netease.seckill.exception.SeckillException;
 import com.netease.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -67,7 +64,7 @@ public class SeckillController {
 	@RequestMapping(value = "/{seckillId}/exposer",method = RequestMethod.POST,
 			produces = {"application/json;charset=UTF-8"})//http context
 	@ResponseBody  //packging return result to json
-	public SeckillResult<Exposer> exposer(Long seckillId){
+	public SeckillResult<Exposer> exposer(@PathVariable Long seckillId){
 		SeckillResult<Exposer> result;
 		try{
 			Exposer exposer = seckillService.exposeSeckillUrl(seckillId);
@@ -92,15 +89,15 @@ public class SeckillController {
 			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}catch (RepeatKillException e){
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId, SeckillStatusEnum.REPEAT_KILL);
-			return new SeckillResult<SeckillExcution>(false,seckillExcution);
+			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}catch (SeckillCloseException e){
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId,SeckillStatusEnum.END);
-			return new SeckillResult<SeckillExcution>(false,seckillExcution);
+			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}
 		catch (Exception e){
 			logger.error(e.getMessage());
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId,SeckillStatusEnum.INNER_ERROR);
-			return new SeckillResult<SeckillExcution>(false,seckillExcution);
+			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}
 	}
 

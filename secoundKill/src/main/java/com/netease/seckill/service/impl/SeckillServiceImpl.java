@@ -5,7 +5,7 @@ import com.netease.seckill.dao.SuccessKillDao;
 import com.netease.seckill.dto.Exposer;
 import com.netease.seckill.dto.SeckillExcution;
 import com.netease.seckill.entity.Seckill;
-import com.netease.seckill.entity.SeckillStatusEnum;
+import com.netease.seckill.enums.SeckillStatusEnum;
 import com.netease.seckill.entity.SuccessKill;
 import com.netease.seckill.exception.RepeatKillException;
 import com.netease.seckill.exception.SeckillCloseException;
@@ -14,12 +14,12 @@ import com.netease.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +28,7 @@ import java.util.List;
  */
 
 @Service
+@PropertySource(value = "classpath:sault.properties")
 public class SeckillServiceImpl implements SeckillService{
 
 
@@ -35,8 +36,8 @@ public class SeckillServiceImpl implements SeckillService{
 	private SuccessKillDao successKillDao;
 	@Autowired
 	private SeckillDao seckillDao;
-
-	public final String salt = "dfsdfdsf7JHJJ";
+	@Value("${sault}")
+	public String sault;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -72,7 +73,7 @@ public class SeckillServiceImpl implements SeckillService{
 	}
 
 	private String getMd5(long seckillId){
-		String base = seckillId+"/"+salt;
+		String base = seckillId+"/"+sault;
 		String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
 		return md5;
 	}

@@ -1,4 +1,4 @@
-package com.netease.seckill.entity;
+package com.netease.seckill.enums;
 
 /**
  * Created by Jo on 10/18/16.

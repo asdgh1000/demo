@@ -1,6 +1,6 @@
 package com.netease.seckill.dto;
 
-import com.netease.seckill.entity.SeckillStatusEnum;
+import com.netease.seckill.enums.SeckillStatusEnum;
 import com.netease.seckill.entity.SuccessKill;
 
 /**
