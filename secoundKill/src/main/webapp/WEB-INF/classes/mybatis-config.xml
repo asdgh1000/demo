@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- config overall variable -->
+    <settings>
+        <!-- use jdbc's getGenerateKeys to get autoIncreament Id -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- use columns alias to replace columns name ,default:true -->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- open hump's name swap:Table(create_time) ->Entity(createTime) -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+    </settings>
+</configuration>

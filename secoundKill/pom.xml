@@ -7,14 +7,18 @@
     <groupId>com.netease</groupId>
     <artifactId>secoundKill</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!--<parent>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+        <!--<version>1.4.1.RELEASE</version>-->
+    <!--</parent>-->
     <dependencies>
-        <dependency>
-            <!-- junit4 -->
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
+        <!--&lt;!&ndash; spring boot &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--</dependency>-->
+
         <!-- complement maven relation -->
         <!-- 1:log java log:slf4j,log4j,logback,common-logging
             slf4j:specification/interface
@@ -130,7 +134,14 @@
             <artifactId>spring-test</artifactId>
             <version>4.2.7.RELEASE</version>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 
+
+    </dependencies>
 
 </project>

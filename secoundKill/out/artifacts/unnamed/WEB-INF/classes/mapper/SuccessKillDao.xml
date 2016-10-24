@@ -1,0 +1,34 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.seckill.dao.SuccessKillDao">
+        <insert id="insertSuccessKill" >
+        <!-- identity confilct,ignore error and return 0 -->
+          INSERT ignore INTO
+            success_kill(seckill_id,user_phone,status)
+          VALUES (#{seckillId},#{userPhone},0)
+        </insert>
+
+        <select id="queryByIdWithSeckill" resultType="SuccessKill" parameterType="long">
+          <!-- query successKill with seckill by Id  -->
+          <!-- tell mybatis how to map the result to SuccessKill and map the result to seckill at the same time -->
+          SELECT
+            sk.seckill_id,
+            sk.user_phone,
+            sk.create_time,
+            sk.status,
+            s.seckill_id AS "seckill.seckill_id",
+            s.name AS "seckill.name",
+            s.number AS "seckill.number",
+            s.start_time AS "seckill.start_time",
+            s.end_time AS "seckill.end_time",
+            s.create_time AS "seckill.create_time"
+          FROM
+            success_kill sk
+          INNER JOIN
+            seckill s ON sk.seckill_id = s.seckill_id
+          WHERE
+            sk.seckill_id = #{seckillId} AND sk.user_phone=#{userPhone}
+          <!-- can control the sql freely -->
+        </select>
+</mapper>

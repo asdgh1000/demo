@@ -1,0 +1,12 @@
+spring:
+    profiles:
+        active: dev
+    application:
+        name: cruncher
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/secoundKill?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: jixue1993
+server:
+    port: 8080
