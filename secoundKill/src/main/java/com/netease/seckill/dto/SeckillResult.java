@@ -1,12 +1,16 @@
 package com.netease.seckill.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Jo on 10/19/16.
  */
 //packing json result
 public class SeckillResult<T> {
 	private boolean success;
+
 	private T data;
+
 	private String error;
 
 	public SeckillResult(boolean success, String error) {
@@ -42,6 +46,5 @@ public class SeckillResult<T> {
 	public void setError(String error) {
 		this.error = error;
 	}
-
 
 }
