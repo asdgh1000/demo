@@ -29,3 +29,7 @@
 19031:M 25 Oct 17:22:47.042 * Background saving started by pid 23585
 23585:C 25 Oct 17:22:47.046 * DB saved on disk
 19031:M 25 Oct 17:22:47.145 * Background saving terminated with success
+19031:M 26 Oct 17:04:47.668 * 1 changes in 3600 seconds. Saving...
+19031:M 26 Oct 17:04:47.670 * Background saving started by pid 34088
+34088:C 26 Oct 17:04:47.675 * DB saved on disk
+19031:M 26 Oct 17:04:47.775 * Background saving terminated with success

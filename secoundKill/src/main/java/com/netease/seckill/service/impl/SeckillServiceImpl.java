@@ -12,6 +12,7 @@ import com.netease.seckill.exception.RepeatKillException;
 import com.netease.seckill.exception.SeckillCloseException;
 import com.netease.seckill.exception.SeckillException;
 import com.netease.seckill.service.SeckillService;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jo on 10/18/16.
@@ -126,4 +129,32 @@ public class SeckillServiceImpl implements SeckillService{
 			throw new SeckillException("seckill inner error:"+e.getMessage());
 		}
 	}
+
+	public SeckillExcution executeSeckillProcedure(long seckillId, long userPhone, String md5)
+			throws SeckillException, RepeatKillException, SeckillCloseException {
+		 if(md5 == null || md5.equals(getMd5(seckillId))){
+			 return new SeckillExcution(seckillId,SeckillStatusEnum.DATA_REWRITE);
+		 }
+		Date time = new Date();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("seckillId",seckillId);
+		map.put("phone",userPhone);
+		map.put("killTime",time);
+		map.put("result",null);
+		try {
+			seckillDao.killByProcedure(map);
+			int result = MapUtils.getInteger(map,"result",-2);
+			if(result == 1){
+				SuccessKill successKill = successKillDao.queryByIdWithSeckill(seckillId,userPhone);
+				return new SeckillExcution(seckillId,SeckillStatusEnum.SUCCESS,successKill);
+			}
+			else{
+				return new SeckillExcution(seckillId,SeckillStatusEnum.statusOf(result));
+			}
+		}catch(Exception e){
+			logger.error(e.getMessage(),e);
+			return new SeckillExcution(seckillId,SeckillStatusEnum.INNER_ERROR);
+		}
+	}
+
 }
