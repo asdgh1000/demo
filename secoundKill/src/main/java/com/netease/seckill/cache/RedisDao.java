@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by Jo on 10/25/16.
@@ -18,10 +20,10 @@ import java.util.HashMap;
 public class RedisDao {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	private JedisPool jedisPool;
 	private int port;
 	private String ip;
+	LinkedList linkedList = new LinkedList();
 
 	public RedisDao(String ip, int port) {
 		logger.info("---------------------------------ip:{},port:{}",ip,port);

@@ -33,3 +33,17 @@
 19031:M 26 Oct 17:04:47.670 * Background saving started by pid 34088
 34088:C 26 Oct 17:04:47.675 * DB saved on disk
 19031:M 26 Oct 17:04:47.775 * Background saving terminated with success
+19031:M 26 Oct 18:04:48.057 * 1 changes in 3600 seconds. Saving...
+19031:M 26 Oct 18:04:48.057 * Background saving started by pid 35108
+35108:C 26 Oct 18:04:48.063 * DB saved on disk
+19031:M 26 Oct 18:04:48.160 * Background saving terminated with success
+19031:M 26 Oct 23:07:28.489 * 1 changes in 3600 seconds. Saving...
+19031:M 26 Oct 23:07:28.489 * Background saving started by pid 38565
+38565:C 26 Oct 23:07:28.494 * DB saved on disk
+19031:M 26 Oct 23:07:28.592 * Background saving terminated with success
+19031:signal-handler (1477532837) Received SIGTERM scheduling shutdown...
+19031:M 27 Oct 09:47:17.620 # User requested shutdown...
+19031:M 27 Oct 09:47:17.620 * Saving the final RDB snapshot before exiting.
+19031:M 27 Oct 09:47:17.621 # Failed opening the RDB file dump.rdb (in server root dir /Users/Jo/demo/demo/redis-3.2.4) for saving: No space left on device
+19031:M 27 Oct 09:47:17.621 # Error trying to save the DB, can't exit.
+19031:M 27 Oct 09:47:17.621 # SIGTERM received but errors trying to shut down the server, check the logs for more information
