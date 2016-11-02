@@ -4,7 +4,6 @@ import com.dyuproject.protostuff.LinkedBuffer;
 import com.dyuproject.protostuff.ProtostuffIOUtil;
 import com.dyuproject.protostuff.runtime.RuntimeSchema;
 import com.netease.seckill.entity.Seckill;
-import org.apache.ibatis.javassist.bytecode.stackmap.BasicBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
@@ -13,6 +12,7 @@ import redis.clients.jedis.JedisPool;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Jo on 10/25/16.
@@ -24,8 +24,10 @@ public class RedisDao {
 	private int port;
 	private String ip;
 	LinkedList linkedList = new LinkedList();
-
+	ArrayList arrayList = new ArrayList();
 	public RedisDao(String ip, int port) {
+		HashMap map = new HashMap();
+		CopyOnWriteArrayList copyOnWriteArrayList = new CopyOnWriteArrayList();
 		logger.info("---------------------------------ip:{},port:{}",ip,port);
 		this.port = port;
 		this.ip = ip;
@@ -35,6 +37,7 @@ public class RedisDao {
 	private RuntimeSchema<Seckill> schema = RuntimeSchema.createFrom(Seckill.class);
 
 	public Seckill getSeckill(long seckillId) {
+		LinkedList linkedList = new LinkedList();
 		jedisPool = new JedisPool(ip, port);
 		//redis operate
 		try {
