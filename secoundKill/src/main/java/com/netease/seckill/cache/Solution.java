@@ -4,25 +4,33 @@ package com.netease.seckill.cache;
  * Created by Jo on 10/29/16.
  */
 public class Solution {
-	public int arrangeCoins(int n) {
-		if(n==0){
-			return 0;
+	public ListNode deleteDuplicates(ListNode head) {
+		if(head == null){
+			return null;
 		}
-		if(n==1 || n ==2 ){
-			return 1;
+		if(head.next == null){
+			return head;
 		}
-		int count = 0;
-		int a = 0;
-		while(count <= n){
-			count+=a;
-			a++;
+		ListNode tmp = new ListNode(0);
+		tmp.next = head;
+		while(head.next != null){
+			if(head.next.val == head.val){
+				head.next = head.next.next;
+			}
+			else {
+				head = head.next;
+			}
 		}
-		return a-1;
+		return tmp.next;
 	}
 
 
+
 	public static void main(String[] args){
+		ListNode listNode = new ListNode(1);
+		listNode.next = new ListNode(1);
+		listNode.next.next = new ListNode(1);
 		Solution solution = new Solution();
-		System.out.println(solution.arrangeCoins(2147483647));
+		System.out.println(solution.deleteDuplicates(listNode));
 	}
 }
