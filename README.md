@@ -71,7 +71,10 @@ populateBean
 ##四.简单应用
 ###1.1 高并发秒杀系统（持续更新）
 项目目录：https://github.com/asdgh1000/demo/tree/master/secoundKill
-
+###1.2 简单代理模式demo（持续更新）
+项目目录：https://github.com/asdgh1000/demo/tree/master/proxyDemo
+###1.3 简单spring事务demo（持续更新）
+项目目录：https://github.com/asdgh1000/demo/tree/master/springTrancation
 
 
 
