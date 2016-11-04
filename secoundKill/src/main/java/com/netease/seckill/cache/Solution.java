@@ -1,10 +1,17 @@
 package com.netease.seckill.cache;
 
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+
 /**
  * Created by Jo on 10/29/16.
  */
 public class Solution {
 	public ListNode deleteDuplicates(ListNode head) {
+		HashSet hashSet = new HashSet();
+		hashSet.add("a");
+		LinkedHashMap linkedHashMap = new LinkedHashMap();
+		linkedHashMap.put("a",1);
 		if(head == null){
 			return null;
 		}

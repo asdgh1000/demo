@@ -68,10 +68,6 @@ populateBean
 2.`增加锁上可并行的线程数（如：读锁写锁分离，允许并行读取数据）`
 3.`选择正确锁的类型（如：悲观锁，乐观锁）`
 
-##四.简单应用
-###1.1 高并发秒杀系统（持续更新）
-项目目录：https://github.com/asdgh1000/demo/tree/master/secoundKill
-
 
 
 
