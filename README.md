@@ -76,7 +76,7 @@ populateBean
 ###1.3 简单spring事务demo（持续更新）
 项目目录：https://github.com/asdgh1000/demo/tree/master/springTrancation
 ##分布式
-![Alt text](./1479652333299.png)
+![Alt text](./distrubuteSystem.png)
 ###1.4 简单分布式事务实践（持续更新）
 ###1.5 分布式一致性
 ####2PC
