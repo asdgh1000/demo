@@ -1,6 +1,8 @@
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
+import org.I0Itec.zkclient.exception.ZkException;
 import org.I0Itec.zkclient.exception.ZkInterruptedException;
+import org.I0Itec.zkclient.exception.ZkNoNodeException;
 import org.I0Itec.zkclient.exception.ZkNodeExistsException;
 import org.apache.zookeeper.CreateMode;
 
@@ -13,125 +15,139 @@ import java.util.concurrent.TimeUnit;
  */
 public class WorkServer {
 
-	private volatile boolean running = true;
+	private volatile boolean running = false;
 
 	private ZkClient zkClient;
 
 	private static final String MASTER_PATH = "/master";
 
-	private IZkDataListener dataListner;
+	private IZkDataListener dataListener;
 
 	private RunningData serverData;
 
 	private RunningData masterData;
 
-	//延时调度器
-	private ScheduledExecutorService delayExecutor = Executors.newScheduledThreadPool(1);
-	//延迟时间
+	private ScheduledExecutorService delayExector = Executors.newScheduledThreadPool(1);
 	private int delayTime = 5;
 
-	public WorkServer(RunningData runningData){
-		this.serverData = runningData;
-		this.dataListner = new IZkDataListener(){
+	public WorkServer(RunningData rd) {
+		this.serverData = rd;
+		this.dataListener = new IZkDataListener() {
 
-			public void handleDataChange(String s, Object o) throws Exception {
+			public void handleDataDeleted(String dataPath) throws Exception {
+				// TODO Auto-generated method stub
+
+				//takeMaster();
+
+
+				if (masterData!=null && masterData.getName().equals(serverData.getName())){
+					takeMaster();
+
+				}else{
+					delayExector.schedule(new Runnable(){
+						public void run(){
+							takeMaster();
+						}
+					}, delayTime, TimeUnit.SECONDS);
+
+				}
+
 
 			}
 
-			public void handleDataDeleted(String s) throws Exception {
-//				askMaster();
-				if(masterData != null && masterData.getName().equals(serverData.getName())){
-					askMaster();
-				}
-				else{
-					delayExecutor.schedule(new Runnable() {
-						public void run() {
-							try {
-								askMaster();
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					},delayTime, TimeUnit.SECONDS);
-				}
+			public void handleDataChange(String dataPath, Object data)
+					throws Exception {
+				// TODO Auto-generated method stub
+
 			}
 		};
 	}
 
-	public void start() throws Exception{
-		if(running){
-			throw new Exception("Server has start up");
+	public ZkClient getZkClient() {
+		return zkClient;
+	}
+
+	public void setZkClient(ZkClient zkClient) {
+		this.zkClient = zkClient;
+	}
+
+	public void start() throws Exception {
+		if (running) {
+			throw new Exception("server has startup...");
 		}
 		running = true;
-		zkClient.subscribeDataChanges(MASTER_PATH, dataListner);
-		askMaster();
+		zkClient.subscribeDataChanges(MASTER_PATH, dataListener);
+		takeMaster();
+
 	}
 
-	public void stop() throws Exception{
-		if(! running){
-			throw new Exception("Server has stoped ");
+	public void stop() throws Exception {
+		if (!running) {
+			throw new Exception("server has stoped");
 		}
 		running = false;
-		zkClient.unsubscribeDataChanges(MASTER_PATH, dataListner);
+
+		delayExector.shutdown();
+
+		zkClient.unsubscribeDataChanges(MASTER_PATH, dataListener);
+
 		releaseMaster();
+
 	}
 
-	public void askMaster() throws Exception{
-		if(!running){
+	private void takeMaster() {
+		if (!running)
 			return;
-		}
+
 		try {
 			zkClient.create(MASTER_PATH, serverData, CreateMode.EPHEMERAL);
 			masterData = serverData;
-			delayExecutor.schedule(new Runnable() {
+			System.out.println(serverData.getName()+" is master");
+			delayExector.schedule(new Runnable() {
 				public void run() {
-					try {
-						if(checkMaster()) {
-							releaseMaster();
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+					// TODO Auto-generated method stub
+					if (checkMaster()){
+						releaseMaster();
 					}
 				}
-			},delayTime,TimeUnit.SECONDS);
-		}catch (ZkNodeExistsException e){
-			RunningData runningData = zkClient.readData(MASTER_PATH,true);
-			if(runningData == null){
-				askMaster();
-			}
-			else{
+			}, 5, TimeUnit.SECONDS);
+
+		} catch (ZkNodeExistsException e) {
+			RunningData runningData = zkClient.readData(MASTER_PATH, true);
+			if (runningData == null) {
+				takeMaster();
+			} else {
 				masterData = runningData;
 			}
-		}catch (Exception e){
-			e.printStackTrace();
+		} catch (Exception e) {
+			// ignore;
 		}
 
 	}
 
-	public boolean checkMaster() throws Exception{
-		try{
-			RunningData masterData = zkClient.readData(MASTER_PATH);
-			if(masterData.getName().equals(serverData.getName())){
+	private void releaseMaster() {
+		if (checkMaster()) {
+			zkClient.delete(MASTER_PATH);
+
+		}
+
+	}
+
+	private boolean checkMaster() {
+		try {
+			RunningData eventData = zkClient.readData(MASTER_PATH);
+			masterData = eventData;
+			if (masterData.getName().equals(serverData.getName())) {
 				return true;
 			}
-		}catch (ZkNodeExistsException e){
 			return false;
-		}catch (ZkInterruptedException e){
+		} catch (ZkNoNodeException e) {
+			return false;
+		} catch (ZkInterruptedException e) {
 			return checkMaster();
-		}catch (Exception e){
-			e.printStackTrace();
+		} catch (ZkException e) {
 			return false;
 		}
-		return false;
 	}
 
-	public void releaseMaster() throws Exception{
-		if(checkMaster()) {
-			try {
-				zkClient.delete(MASTER_PATH);
-			}catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-	}
 }
