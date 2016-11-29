@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+       <dubbo:application name="netease-dubbo-provider"  />
+
+       <dubbo:registry id="zk1" address="127.0.0.1:2181" protocol="zookeeper" />
+
+       <dubbo:protocol id="mydubbo" name="dubbo" port="20886" />
+
+       <dubbo:provider registry="zk1" protocol="mydubbo"/>
+
+       <bean name="speakInterface" class = "com.netease.rpc.impl.SpeakInterfaceImpl"/>
+
+       <dubbo:service interface="com.netease.rpc.SpeakInterface" ref="speakInterface"  />
+
+       <!--<dubbo:reference id="demoServiceRemote" interface="com.alibaba.dubbo.demo.DemoService" />-->
+</beans>

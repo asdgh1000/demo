@@ -107,7 +107,7 @@ public class WorkServer {
 				public void run() {
 					// TODO Auto-generated method stub
 					if (checkMaster()){
-						releaseMaster();
+//						releaseMaster();
 					}
 				}
 			}, 5, TimeUnit.SECONDS);
