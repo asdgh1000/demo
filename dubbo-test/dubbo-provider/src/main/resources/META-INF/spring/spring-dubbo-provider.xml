@@ -21,3 +21,4 @@
 
        <!--<dubbo:reference id="demoServiceRemote" interface="com.alibaba.dubbo.demo.DemoService" />-->
 </beans>
+

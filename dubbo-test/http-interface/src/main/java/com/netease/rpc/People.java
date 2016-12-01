@@ -1,9 +1,11 @@
 package com.netease.rpc;
 
+import java.io.Serializable;
+
 /**
  * Created by Jo on 11/29/16.
  */
-public class People {
+public class People implements Serializable{
 
 	private Integer age;
 

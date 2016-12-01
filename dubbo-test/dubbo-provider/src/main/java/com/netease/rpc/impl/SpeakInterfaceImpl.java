@@ -10,4 +10,5 @@ public class SpeakInterfaceImpl implements SpeakInterface {
 	public String speak(People people) {
 		return "dubbo return: " + people.getAge();
 	}
+
 }
