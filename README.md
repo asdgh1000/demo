@@ -82,3 +82,24 @@ populateBean
 ####2PC
 ####3PC
 ####Basic Paxos
+###1.5 分布式调度框架:zk
+#### zk基本使用：
+Apache开源分布式服务框架，可以使用zk来实现分布式架构中的：
+1.数据发布／订阅
+2.负载均衡
+3.命名服务
+4.分布式协调通知
+5.master选举
+#### zk的简单使用:
+zk选master：
+项目目录：https://github.com/asdgh1000/demo/tree/master/zookeeper-test
+###1.6 分布式服务框架：Dubbo
+#### RPC:
+远程过程调用协议,它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。在分布式环境中，RPC保证了服务器节点之间的消息传输交互，让用户感觉是完全透明的。
+#### Dubbo基本使用：
+alibaba开源分布式服务框架，可以使用dubbo来处理分布式服务问题
+随着网站规模的逐渐扩大分布式服务架构以及流动计算架构势在必行，此时，用于提高业务复用及整合的 分布式服务框架(RPC) 是关键。
+#### Dubbo的简单实用：
+利用zk作为数据发布订阅中心，实现服务的远程调用：
+项目目录：https://github.com/asdgh1000/demo/tree/master/dubbo-test
+
