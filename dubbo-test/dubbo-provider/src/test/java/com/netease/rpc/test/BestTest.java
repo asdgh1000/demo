@@ -17,16 +17,13 @@ import javax.annotation.Resource;
 @ContextConfiguration(locations = { "classpath*:spring-dubbo-consumer.xml","classpath*:spring-context.xml" })
 public class BestTest {
 
-	@Resource
-	private SpeakInterface speakInterface;
+	@Resource private SpeakInterface speakInterface;
 
-	@Test
-	public void test(){
+	@Test public void test() {
 		People people = new People();
 		people.setAge(24);
 		people.setSex("male");
-		speakInterface.speak(people);
-		Assert.assertEquals(true,speakInterface.speak(people).contains(people.getAge()+""));
+		System.out.println(speakInterface.speak(people));
+		Assert.assertEquals(true, speakInterface.speak(people).contains(people.getAge() + ""));
 	}
-
 }

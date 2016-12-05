@@ -75,14 +75,22 @@ populateBean
 项目目录：https://github.com/asdgh1000/demo/tree/master/proxyDemo
 ###1.3 简单spring事务demo（持续更新）
 项目目录：https://github.com/asdgh1000/demo/tree/master/springTrancation
-##分布式
+##五.分布式
 ![Alt text](./distrubuteSystem.png)
+###1.1 分布式相关算法
+####1.1.1 负载均衡算法
+##### 1.Round Robin(轮询算法)
+##### 2.Random (随机算法)
+##### 3.Hash (源地址hash)
+##### 4.Weight Round Ronbin (加权轮询法)
+##### 5.Weight Random (加权随机法)	
+##### 6.Least Connections (最小连接数法)
 ###1.4 简单分布式事务实践（持续更新）
 ###1.5 分布式一致性
 ####2PC
 ####3PC
 ####Basic Paxos
-###1.5 分布式调度框架:zk
+###1.6 分布式调度框架:zk
 #### zk基本使用：
 Apache开源分布式服务框架，可以使用zk来实现分布式架构中的：
 1.数据发布／订阅
@@ -93,7 +101,7 @@ Apache开源分布式服务框架，可以使用zk来实现分布式架构中的
 #### zk的简单使用:
 zk选master：
 项目目录：https://github.com/asdgh1000/demo/tree/master/zookeeper-test
-###1.6 分布式服务框架：Dubbo
+###1.7 分布式服务框架：Dubbo
 #### RPC:
 远程过程调用协议,它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。在分布式环境中，RPC保证了服务器节点之间的消息传输交互，让用户感觉是完全透明的。
 #### Dubbo基本使用：
