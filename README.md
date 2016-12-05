@@ -76,7 +76,20 @@ populateBean
 ###1.3 简单spring事务demo（持续更新）
 项目目录：https://github.com/asdgh1000/demo/tree/master/springTrancation
 ##五.分布式
-![Alt text](./distrubuteSystem.png)
+1.分布式协作配置管理系统（zookeeper）
+2.分布式缓存系统
+3.分布式持久化存储
+4.分布式消息系统
+5.搜索引擎
+6.CDN
+7.负载均衡系统
+8.运维自动化系统
+9.实时计算系统
+10.离线计算系统
+11.分布式文件系统
+12.日志收集系统
+13.监控系统
+14.数据仓库
 ###1.1 分布式相关算法
 ####1.1.1 负载均衡算法
 ##### 1.Round Robin(轮询算法)
