@@ -5,5 +5,6 @@ package com.netease.rpc;
  */
 public interface SpeakInterface {
 
+
 	String speak(People people);
 }
