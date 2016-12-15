@@ -1,6 +1,8 @@
 # java生产项目常用的demo
 
-[TOC]
+文档比较长，有兴趣查看的可以安装一个：
+https://chrome.google.com/webstore/detail/github-toc/nalkpgbfaadkpckoadhlkihofnbhfhek
+来展示目录
 
 ##一.代理模式
 ###1.静态代理
@@ -312,6 +314,22 @@ alibaba开源分布式服务框架，可以使用dubbo来处理分布式服务�
 主要解决分布式环境下应用的互相访问问题，这也是支撑应用服务化的基础
 #### 2 消息中间件
 解决应用之间的消息传递，解耦，异步等问题。
+##### 消息发送一致性定义
+消息发送一致性是指产生消息的业务动作与消息发送的一致，就是说如果业务操作成功了，那么由这个操作产生的消息一定要发送出去，否则就丢消息了。另一方面，如果这个业务行为没有发生或者失败，就不应该把消息发送出去。
+###### 存在的一致性问题
+无论是先发消息后执行业务逻辑，还是先执行业务逻辑后发消息，都会产生消息不一致性问题（消息系统可能挂掉）
+##### JMS (Java Message Service)
+###### 概念
+1.Destination:消息所走通道的定义，也就是用来定义消息从发送端发出后要走的通道，而不是最终接收方。Destination属于管理类的对象。<br>
+2.ConnectionFactory:用于创建连接的对象。ConnectionFactory属于管理类的对象。<br>
+3.Connection:连接接口,所负责的工作主要是创建Session。<br>
+4.Session:会话接口，消息的发送者，接受者以及消息对象本身都由这个会话创建。<br>
+5.MessageConsumer:消息的消费者，订阅消息并处理消息的对象。<br>
+6.MessageProducer:消息的生产者，用来发送消息的都喜庆。<br>
+7.XXXMessage:包括（BytesMessage,MapMessage,ObjectMessage,StreamMessage,TextMessage）五种。<br>
+###### XA接口
+ConnectionFactory,Connection,Session有着对应的XA接口，因为事务控制实在Session层面上的，而Session是通过Connection创建的，Connection是通过ConnectionFactory创建的，所以这三个接口需要有对应的XA接口。（Session，Connection，ConnectionFactory在Queue和Topic模型下对应的各个接口也存在XA系列接口）。
+
 #### 3 数据访问中间件
 主要解决应用访问数据库的共性问题的组件。
 
