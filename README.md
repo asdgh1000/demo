@@ -319,6 +319,11 @@ alibaba开源分布式服务框架，可以使用dubbo来处理分布式服务�
 ###### 存在的一致性问题
 无论是先发消息后执行业务逻辑，还是先执行业务逻辑后发消息，都会产生消息不一致性问题（消息系统可能挂掉）
 ##### JMS (Java Message Service)
+###### JMS中的模型
+JMS Queue 模型：<br>
+PTP方式，一个消息只能被一个应用消费。<br>
+JMS Topic 模式：<br>
+Pub/Sub方式，所有监听了一个topic的应用都可以收到同一条消息。<br>
 ###### 概念
 1.Destination:消息所走通道的定义，也就是用来定义消息从发送端发出后要走的通道，而不是最终接收方。Destination属于管理类的对象。<br>
 2.ConnectionFactory:用于创建连接的对象。ConnectionFactory属于管理类的对象。<br>
@@ -328,7 +333,11 @@ alibaba开源分布式服务框架，可以使用dubbo来处理分布式服务�
 6.MessageProducer:消息的生产者，用来发送消息的都喜庆。<br>
 7.XXXMessage:包括（BytesMessage,MapMessage,ObjectMessage,StreamMessage,TextMessage）五种。<br>
 ###### XA接口
+####### 存在问题
+1.使用XA接口能解决消息和业务逻辑发送一致性问题，但是同时也会引入分布式事务，这会带来开销并增加复杂性<br>
+2.对于业务操作有限制，要求业务操作必须支持XA协议，才能够与发送消息一起来做分布式事务，这会成为一个限制，因为并不是所有需要与发送消息一起做成分布式事务的业务操作都支持XA协议。
 ConnectionFactory,Connection,Session有着对应的XA接口，因为事务控制实在Session层面上的，而Session是通过Connection创建的，Connection是通过ConnectionFactory创建的，所以这三个接口需要有对应的XA接口。（Session，Connection，ConnectionFactory在Queue和Topic模型下对应的各个接口也存在XA系列接口）。
+
 
 #### 3 数据访问中间件
 主要解决应用访问数据库的共性问题的组件。
