@@ -143,5 +143,15 @@ Map是`java.util`下的接口简单解释如下：
 ##### static class SimpleEntry<K,V> implements Entry<K,V>, java.io.Serializable:
 在AbstractMap这个类中还创建了一个静态的内部类：SimpleEntry，这个类实现了Map接口中的内部接口：Entry。
 ##### static class SimpleImmutableEntry<K,V> implements Entry<K,V>, java.io.Serializable
-同样AbstractMap这个类中还创建了一个静态的内部类：SimpleImmutableEntry，这个类实现了Map接口中的内部接口：Entry。这个匿名内部类不支持setvalue方法。
+同样AbstractMap这个类中还创建了一个静态的内部类：SimpleImmutableEntry，这个类实现了Map接口中的内部接口：Entry。这个匿名内部类不支持setvalue方法。即无法修改某个Entry的value值。
 ####HashMap
+&emsp;&emsp;可以看到在HashMap中有几个内部类分别是：<br>
+`Holder`,`Entry`,`HashIterator`,`ValueIterator`,`KeyIterator`,`EntryIterator`,`KeySet`,`Values`,`EntrySet`
+阅读HashMap 源码从最简单的构造方法开始：
+    /**
+     * Constructs an empty <tt>HashMap</tt> with the default initial capacity
+     * (16) and the default load factor (0.75).
+     */
+    public HashMap() {
+        this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+    }
