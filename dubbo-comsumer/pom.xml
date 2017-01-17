@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.netease</groupId>
-    <artifactId>dubbo-provider</artifactId>
+    <artifactId>dubbo-comsumer</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <dependencies>
+
         <dependency>
             <groupId>com.netease</groupId>
             <artifactId>http-interface</artifactId>
@@ -57,9 +57,6 @@
             <version>3.2.8.RELEASE</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
-
 
 </project>

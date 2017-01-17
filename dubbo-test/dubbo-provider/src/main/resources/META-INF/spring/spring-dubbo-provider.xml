@@ -9,11 +9,12 @@
 
        <dubbo:application name="netease-dubbo-provider"  />
 
-       <dubbo:registry id="zk1" address="127.0.0.1:2181" protocol="zookeeper" />
-
-       <dubbo:protocol id="mydubbo" name="dubbo" port="20886" />
-
        <dubbo:provider registry="zk1" protocol="mydubbo"/>
+
+       <dubbo:registry id="zk1" address="127.0.0.1:2181" protocol="zookeeper" file="/Users/Jo/Desktop/cache" />
+
+       <dubbo:protocol id="mydubbo" name="dubbo" port="20887" />
+
 
        <bean name="speakInterface" class = "com.netease.rpc.impl.SpeakInterfaceImpl"/>
 
