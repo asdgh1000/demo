@@ -12,6 +12,8 @@ import com.netease.rpc.TestService;
 public class TestExport {
 
 	public static void main(String[] args){
+		ServiceConfig serviceConfig = new ServiceConfig();
+		serviceConfig.export();
 		System.out.println(System.getProperties());
 		TestExport testExport = new TestExport();
 		testExport.exposeService();

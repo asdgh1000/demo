@@ -1,7 +1,6 @@
 package myJdkDynamicProxy;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
  * Created by Jo on 9/24/16.

@@ -9,6 +9,7 @@ import java.lang.reflect.Proxy;
  */
 public class Test {
 	public static void main(String[] args){
+
 		Move move = new MoveImpl();
 		InvocationHandler timeHandler = new TimeHandler(move);
 

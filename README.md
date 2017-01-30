@@ -23,7 +23,18 @@ https://chrome.google.com/webstore/detail/github-toc/nalkpgbfaadkpckoadhlkihofnb
 ######1.1.2.ApplicationContext
 常用实现类：`FileSystemXmlApplicationContext`
 #####1.1.3.启动过程
+ioc容器的启动过程分为三个过程分别是：定位，载入，注册这三个基本过程<br>
+将这三部分分开可以让用户更加灵活的对这三个过程进行裁剪或扩展，定义出最适合自己的ioc容器初始化过程。
 由于对于不同容器启动过程是类似的，因此在基类`AbstractXmlApplicationContext`中将它们封装好，通过refresh()方法进行调用。
+###### 定位
+这个过程是BeanDefinition的定位，通过使用ResourceLoader的统一resource接口定位类似FileSystemResource和ClassPathResource等的Resource资源。<br>
+###### 载入
+这个过程是把用户定义好的Bean表示成Ioc容器内部的数据结构：BeanDefinition结构。<br>
+###### 注册
+向Ioc容器中注册BeanDefinition的过程，这个过程是调用BeanDefinitionRegistry接口的实现来完成的，在Ioc容器的内部通过将BeanDefinition注入到HashMap中去，Ioc容器就是通过这个HashMap来持有这些BeanDefinition数据的。<br>
+在这个过程中，一般不包括bean的依赖注入。在Spring Ioc设计中Bean定义的载入和诸如是两个不同的过程。<br>
+其中，依赖注入一般发生在第一次通过getBean向容器索取Bean的过程中。（但是有一个例外，当Bean设置了LazyInit属性，那么这个Bean的依赖注入在Ioc容器的初始化过程就完成了，而不用等到容器初始化以后的getBean方法）
+
 ######refresh():
 IOC容器初始化具体分为以下三部：
 | BeanDefinition的Resource|定位|载入|注册|
