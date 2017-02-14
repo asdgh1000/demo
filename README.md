@@ -92,6 +92,23 @@ synchronized原语和ReentrantLock在一般情况下没有什么区别，但是�
 2.需要分开处理一些wait-notify，ReentrantLock里面的Condition应用，能够控制notify哪个线程<br>
 3.具有公平锁功能，每个到来的线程都将排队等候、<br>
 4.lock支持锁获取超时，而synchronized不支持。<br>
+###1.3 JAVA垃圾收集器
+####基本概念
+主流JVM虚拟机一般使用HotSpot，因此主要讨论HotSpot中的垃圾收集器。<br>
+在理解java垃圾收集器之前需要明确一个概念：<br>
+垃圾收集器主要分为三大类，一类是并行(Parallel)：这类收集器指很多垃圾收集线程并行工作，但此时用户线程仍然处于等待状态。(属于并行并行的垃圾收集器有：ParNew，Parallel Scavenge,Parallel Old)<br>
+另一类是并发(Concurrent)：指用户线程与垃圾收集器同时执行（但不一定会并行，可能会交替执行），用户程序在继续执行，而垃圾收集器运行于另一个CPU上。(属于并发的垃圾收集器有：CMS，G1)<br>
+还有一种就属于简单串行（Serial）：指每次进行垃圾收集时，用户线程会处于等待，并且仅有一个线程能进行垃圾收集(Serial,Seral Old)。<br>
+####Serial收集器
+这个收集器是一个单线程的收集器，它单线程的意义不仅仅说明它只会使用一个CPU或一条收集器线程去完成所有垃圾收集器工作，更重要的是它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。（Stop the world），这就意味着很可能你的程序运行每一小时要暂停5分钟。不过Java1.7以前Client模式下新生代默认的手机器就是它，因为在仅有一个CPU的情况下，使用其他并发收集器，并不是好的选择。
+####ParNew收集器
+ParNew收集器其实就是serial收集器的多线程版本，除了使用多线程进行垃圾收集之外，其余行为包括serial收集器可用的所有参数，收集算法，stop the world，对象分配规则，回收策略等都和Serial收集器完全一样，在实现上也共用了相当多的代码。但是相比之下ParNew收集方式用的十分普遍其中一个重要的原因是：目前只有ParNew能与CMS配合工作。
+####Parallel Scavenge 收集器
+与ParNew一样Parallel Scavenge也是使用复制算法同时也是并行的多线程收集器，它的特点是它关注的点与其他收集器不同，CMS等收集器的关注点是尽可能的缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集器的目标则是达到一个可控制的吞吐量(ThroughtPut)。所谓吞吐量就是CPU运用用户代码的时间与CPU总消耗时间的比值。<br>
+停顿时间越短的越适合需要与用户交互的程序，良好的响应速度能提升用户体验，而高吞吐量则可以高效的利用CPU时间，尽快完成计算任务，主要适合后台运算而交互不太多的任务。<br>
+其中Parallel Scavenge收集器提供了两个参数用于精确控制吞吐量（-XX:MaxCGPauseMills最大垃圾收集停顿时间，-XX:GCTimeRatio直接设置吞吐量大小）另外也经常使用参数（-XX:+UseAdaptiveSizePolicy,当这个开关打开后就不需要手动指定新生代大小，晋升老年代老年代年龄等），虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或最大吞吐量，这种调节方式称为GC自适应调节策略。
+####Serial Old收集器
+
 ##四.简单应用
 ###1.1 高并发秒杀系统（持续更新）
 项目目录：https://github.com/asdgh1000/demo/tree/master/secoundKill
