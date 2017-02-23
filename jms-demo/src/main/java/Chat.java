@@ -2,13 +2,12 @@ import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Jo on 2/20/17.
  */
 public class Chat implements MessageListener {
-ConcurrentHashMap
+
 	private TopicSession topicSession;
 
 	private TopicPublisher topicPublisher;

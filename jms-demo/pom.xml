@@ -18,6 +18,11 @@
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.3.3</version>
+        </dependency>
     </dependencies>
 
 
