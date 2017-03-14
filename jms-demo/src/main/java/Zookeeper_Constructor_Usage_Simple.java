@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 public class Zookeeper_Constructor_Usage_Simple implements Watcher {
 	private static CountDownLatch countDownLatch = new CountDownLatch(1);
 	public static void main(String[] args)throws Exception{
-		Executor executor = Executors.newFixedThreadPool()
+		Executor executor = Executors.newFixedThreadPool(10);
 		ZooKeeper zooKeeper = new ZooKeeper("127.0.0.1:2181",5000,new Zookeeper_Constructor_Usage_Simple());
 		System.out.println(zooKeeper.getState());
 		try{
